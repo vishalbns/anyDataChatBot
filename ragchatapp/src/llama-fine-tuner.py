@@ -20,6 +20,7 @@ import numpy as np
 
 # Load the dataset
 dataset = load_dataset("databricks/databricks-dolly-15k")
+print("dataset loaded")
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
@@ -57,6 +58,7 @@ def tokenize_function(example):
 
 # Map the tokenize function to the dataset splits
 tokenized_datasets = dataset.map(tokenize_function, batched=True)
+print("dataset tokeized")
 
 # Remove unnecessary columns if needed
 tokenized_datasets = tokenized_datasets.remove_columns(['id'])
@@ -98,11 +100,13 @@ peft_trainer = Trainer(
 
 # Start training
 peft_trainer.train()
+print("peft model trained")
 
 # Save the fine-tuned model
 peft_model_path = "./peft-qLoRA-llama3.2B-dolly15k"
 peft_trainer.model.save_pretrained(peft_model_path)
 tokenizer.save_pretrained(peft_model_path)
+print("peft model saved")
 
 # Load the fine-tuned model for inference
 from peft import PeftModel
