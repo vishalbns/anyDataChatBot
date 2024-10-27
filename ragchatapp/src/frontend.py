@@ -5,7 +5,7 @@ import requests
 API_BASE_URL = "http://127.0.0.1:8000"  # Change this to your FastAPI server URL
 
 # Title of the app
-st.title("Chat with your data!")
+st.title("Chat with your data! :)")
 
 # Radio button to select input type
 input_type = st.radio("Select Input Type", ("File Upload", "Text Input"))
@@ -22,7 +22,12 @@ if input_type == "File Upload":
         # Button to upload the file
         if st.button("Upload File"):
             response = requests.post(f"{API_BASE_URL}/upload/", files={"file": uploaded_file})
-            st.write(response.json())
+            if response.status_code == 200:
+                st.success("File uploaded successfully!")
+                if st.button("Chat"):
+                    st.write("Chat functionality coming soon!")  # Implement your chat functionality here
+            else:
+                st.error("File upload failed. Please try again.")
 
 # Handling Text Input
 elif input_type == "Text Input":
@@ -31,6 +36,11 @@ elif input_type == "Text Input":
     if text_input:
         # Button to upload the text
         if st.button("Upload Text"):
-            response = requests.post(f"{API_BASE_URL}/upload/text/", data={'text': text_input})
-            st.write(response.json())
+            response = requests.post(f"{API_BASE_URL}/upload/text/", data={'content': text_input})
+            if response.status_code == 200:
+                st.success("Text uploaded successfully!")
+                if st.button("Chat"):
+                    st.write("Chat functionality coming soon!")  # Implement your chat functionality here
+            else:
+                st.error("Text upload failed. Please try again.")
 

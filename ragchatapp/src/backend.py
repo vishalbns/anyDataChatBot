@@ -75,7 +75,7 @@ async def upload_text(content: str = Body(...)):
         # Check if the content is a valid URL
         # Check if the content is a valid URL
         print(content)
-        if content.startswith(("text=http")):
+        if content.startswith(("content=http")):
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f'urls/url_input_{timestamp}.txt'  # Save to "urls" folder
         else:
