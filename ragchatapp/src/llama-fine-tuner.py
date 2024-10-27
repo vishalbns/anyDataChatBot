@@ -35,7 +35,7 @@ config = AutoConfig.from_pretrained(model_id)
 # Ensure that the rope_scaling type is defined
 if not hasattr(config, 'rope_scaling') or 'type' not in config.rope_scaling:
     # Set a default if rope_scaling is not present or type is missing
-    config.rope_scaling = {"type": "default_value"}  # Adjust as necessary
+    config.rope_scaling = {"type": "llama3"}  # Adjust as necessary
 
 # Load the model
 original_model = AutoModelForCausalLM.from_pretrained(model_id, config=config, torch_dtype=torch.bfloat16)
