@@ -27,13 +27,12 @@ import torch
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
 from peft import LoraConfig, get_peft_model, TaskType
 
+# Load model and tokenizer
+model_id = "meta-llama/Llama-3.2-3B-Instruct"
 # Load the config and manually set the rope_scaling if missing
 config = AutoConfig.from_pretrained(model_id)
 if 'rope_scaling' not in config or 'type' not in config.rope_scaling:
-    config.rope_scaling = {"type": "default_value"}  # Set to your desired default
-
-# Load model and tokenizer
-model_id = "meta-llama/Llama-3.2-3B-Instruct"
+    config.rope_scaling = {"type": "default_value"}
 original_model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
