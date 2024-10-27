@@ -24,8 +24,13 @@ dataset = load_dataset("databricks/databricks-dolly-15k")
 print("dataset loaded")
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
+from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
 from peft import LoraConfig, get_peft_model, TaskType
+
+# Load the config and manually set the rope_scaling if missing
+config = AutoConfig.from_pretrained(model_id)
+if 'rope_scaling' not in config or 'type' not in config.rope_scaling:
+    config.rope_scaling = {"type": "default_value"}  # Set to your desired default
 
 # Load model and tokenizer
 model_id = "meta-llama/Llama-3.2-3B-Instruct"
