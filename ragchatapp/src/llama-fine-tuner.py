@@ -37,6 +37,15 @@ if not hasattr(config, 'rope_scaling') or 'type' not in config.rope_scaling:
     # Set a default if rope_scaling is not present or type is missing
     config.rope_scaling = {"type": "llama3"}  # Adjust as necessary
 
+config.rope_scaling = {
+        "factor": 32.0,
+        "high_freq_factor": 4.0,
+        "low_freq_factor": 1.0,
+        "original_max_position_embeddings": 8192,
+        "rope_type": "llama3"
+        "type": "llama3"
+    }
+
 # Load the model
 original_model = AutoModelForCausalLM.from_pretrained(model_id, config=config, torch_dtype=torch.bfloat16)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
