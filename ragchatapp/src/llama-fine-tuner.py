@@ -70,16 +70,16 @@ def tokenize_function(example):
     prompt = f"Instruction: {example['instruction']}\nContext: {example['context']}\nCategory: {example['category']}\nResponse: "
     
     # Tokenize the prompt for input_ids
-    example['input_ids'] = tokenizer(prompt, padding="max_length", truncation=True, max_length=1000, return_tensors="pt").input_ids[0]
+    example['input_ids'] = tokenizer(prompt, padding="max_length", truncation=True, max_length=512, return_tensors="pt").input_ids[0]
 
     # Tokenize the response for labels
-    example['labels'] = tokenizer(example['response'], padding="max_length", truncation=True, max_length=1000, return_tensors="pt").input_ids[0]
+    example['labels'] = tokenizer(example['response'], padding="max_length", truncation=True, max_length=512, return_tensors="pt").input_ids[0]
 
     return example
 
 # Map the tokenize function to the dataset splits
-tokenized_datasets = dataset.map(tokenize_function, batched=True)
-print("dataset tokeized")
+tokenized_datasets = dataset.map(tokenize_function)
+print("dataset tokenized")
 
 # Remove unnecessary columns if needed
 tokenized_datasets = tokenized_datasets.remove_columns(['id'])
