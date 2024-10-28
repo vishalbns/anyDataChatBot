@@ -85,7 +85,7 @@ print("dataset tokenized")
 lora_config = LoraConfig(
     r=32, # Rank
     lora_alpha=32,
-    target_modules=["q", "v"],  # You can adjust this based on your model architecture
+    #target_modules=["q", "v"],  # You can adjust this based on your model architecture
     lora_dropout=0.05,
     bias="none",
     task_type=TaskType.CAUSAL_LM  # Task type for LLaMA
