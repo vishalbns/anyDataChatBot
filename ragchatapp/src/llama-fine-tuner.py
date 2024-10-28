@@ -81,9 +81,6 @@ def tokenize_function(example):
 tokenized_datasets = dataset.map(tokenize_function)
 print("dataset tokenized")
 
-# Remove unnecessary columns if needed
-tokenized_datasets = tokenized_datasets.remove_columns(['id'])
-
 # Configure qLoRA
 lora_config = LoraConfig(
     r=32, # Rank
