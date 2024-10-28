@@ -101,11 +101,11 @@ output_dir = f'./peft-llama3.2B-dolly-training-{str(int(time.time()))}'
 # Define training arguments
 peft_training_args = TrainingArguments(
     output_dir=output_dir,
-    auto_find_batch_size=True,
+    per_device_train_batch_size=1,
     learning_rate=1e-3,  # Higher learning rate than full fine-tuning.
     num_train_epochs=1,
     logging_steps=1,
-    max_steps=1,
+    max_steps=5,
     fp16=False,  # Enable mixed precision training
 )
 
