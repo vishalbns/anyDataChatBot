@@ -131,6 +131,8 @@ from peft import PeftModel
 
 peft_model_base = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
 
 peft_model = PeftModel.from_pretrained(
     peft_model_base, 
