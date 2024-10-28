@@ -104,7 +104,7 @@ peft_training_args = TrainingArguments(
     auto_find_batch_size=True,
     learning_rate=1e-3,  # Higher learning rate than full fine-tuning.
     num_train_epochs=1,
-    logging_steps=5,
+    logging_steps=1,
     max_steps=1,
     fp16=False,  # Enable mixed precision training
 )
