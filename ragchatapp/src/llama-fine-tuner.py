@@ -42,13 +42,15 @@ config.rope_scaling = {
         "high_freq_factor": 4.0,
         "low_freq_factor": 1.0,
         "original_max_position_embeddings": 8192,
-        "rope_type": "llama3"
+        "rope_type": "llama3",
         "type": "llama3"
     }
 
 # Load the model
 original_model = AutoModelForCausalLM.from_pretrained(model_id, config=config, torch_dtype=torch.bfloat16)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
 
 # Function to print trainable parameters
 def print_number_of_trainable_model_parameters(model):
