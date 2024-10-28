@@ -145,13 +145,13 @@ def generate_response(instruction):
     prompt = f"Instruction: {instruction}\nResponse: "
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to(peft_model.device)
 
-    # Generate the response
-    output = peft_model.generate(
+    # Generate the response using the base model within peft_model
+    output = peft_model.base_model.generate(
         input_ids,
         max_new_tokens=256,  # Adjust the number of tokens to generate as needed
         do_sample=True,      # Enable sampling for diverse responses
-        top_k=50,           # Top-k sampling
-        top_p=0.95          # Nucleus sampling
+        top_k=50,            # Top-k sampling
+        top_p=0.95           # Nucleus sampling
     )
 
     return tokenizer.decode(output[0], skip_special_tokens=True)
