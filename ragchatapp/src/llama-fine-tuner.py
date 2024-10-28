@@ -139,28 +139,32 @@ peft_model = PeftModel.from_pretrained(
     is_trainable=False
 )
 
-# Inference code with attention mask and pad token id
 def generate_response(instruction):
+    # Set model to evaluation mode
+    peft_model.eval()
+    
     # Construct the prompt using only the instruction
     prompt = f"Instruction: {instruction}\nResponse: "
-    inputs = tokenizer(prompt, return_tensors="pt", padding=True)
+    
+    # Tokenize with specified padding
+    inputs = tokenizer(prompt, return_tensors="pt", padding="longest")
     input_ids = inputs.input_ids.to(peft_model.device)
     attention_mask = inputs.attention_mask.to(peft_model.device)
     
-    # Generate the response using the base model within peft_model
+    # Generate the response
     output = peft_model.base_model.generate(
         input_ids,
-        attention_mask=attention_mask,  # Add attention mask for reliable results
-        max_new_tokens=256,  # Adjust the number of tokens to generate as needed
-        do_sample=True,      # Enable sampling for diverse responses
-        top_k=50,            # Top-k sampling
-        top_p=0.95,          # Nucleus sampling
-        pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id  # Set pad token ID
+        attention_mask=attention_mask,
+        max_new_tokens=256,
+        do_sample=True,
+        top_k=50,
+        top_p=0.95,
+        pad_token_id=tokenizer.pad_token_id  # Ensure pad token ID is set correctly
     )
-
+    
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
-# Example usage
+# Test the function
 instruction = "What are the benefits of using renewable energy?"
 response = generate_response(instruction)
 print(response)
