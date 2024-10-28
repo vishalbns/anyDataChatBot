@@ -70,10 +70,10 @@ def tokenize_function(example):
     prompt = f"Instruction: {example['instruction']}\nContext: {example['context']}\nCategory: {example['category']}\nResponse: "
     
     # Tokenize the prompt for input_ids
-    example['input_ids'] = tokenizer(prompt, padding="max_length", truncation=True, max_length=512, return_tensors="pt").input_ids[0]
+    example['input_ids'] = tokenizer(prompt, padding="max_length", truncation=True, max_length=1000, return_tensors="pt").input_ids[0]
 
     # Tokenize the response for labels
-    example['labels'] = tokenizer(example['response'], padding="max_length", truncation=True, max_length=512, return_tensors="pt").input_ids[0]
+    example['labels'] = tokenizer(example['response'], padding="max_length", truncation=True, max_length=1000, return_tensors="pt").input_ids[0]
 
     return example
 
