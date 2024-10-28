@@ -106,7 +106,7 @@ peft_training_args = TrainingArguments(
     num_train_epochs=10,
     logging_steps=5,
     max_steps=5,
-    fp16=True,  # Enable mixed precision training
+    fp16=False,  # Enable mixed precision training
 )
 
 # Create the Trainer
