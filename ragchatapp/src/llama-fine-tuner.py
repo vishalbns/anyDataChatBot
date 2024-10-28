@@ -129,6 +129,9 @@ print("peft model saved")
 # Load the fine-tuned model for inference
 from peft import PeftModel
 
+model_id = "meta-llama/Llama-3.2-3B-Instruct"
+peft_model_path = "./peft-qLoRA-llama3.2B-dolly15k"
+
 peft_model_base = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 if tokenizer.pad_token is None:
@@ -167,7 +170,7 @@ def generate_response(instruction):
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
 # Test the function
-instruction = "What are the benefits of using renewable energy?"
+instruction = "When did Virgin Australia start?"
 response = generate_response(instruction)
 print(response)
 
