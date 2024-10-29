@@ -5,7 +5,7 @@ from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, Traini
 from peft import LoraConfig, get_peft_model, TaskType
 
 model_id = "meta-llama/Llama-3.2-3B-Instruct"
-peft_model_path = "./peft-qLoRA-llama3.2B-dolly15k"
+peft_model_path = "../models/peft-qLoRA-llama3.2B-dolly15k"
 
 peft_model_base = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16)
 tokenizer = AutoTokenizer.from_pretrained(model_id)

@@ -96,7 +96,7 @@ peft_model = get_peft_model(original_model, lora_config)
 print(print_number_of_trainable_model_parameters(peft_model))
 
 # Prepare output directory for saving model
-output_dir = f'./peft-llama3.2B-dolly-training-{str(int(time.time()))}'
+output_dir = f'../models/peft-llama3.2B-dolly-training-{str(int(time.time()))}'
 
 # Define training arguments
 peft_training_args = TrainingArguments(
@@ -121,7 +121,7 @@ peft_trainer.train()
 print("peft model trained")
 
 # Save the fine-tuned model
-peft_model_path = "./peft-qLoRA-llama3.2B-dolly15k"
+peft_model_path = "../models/peft-qLoRA-llama3.2B-dolly15k"
 peft_trainer.model.save_pretrained(peft_model_path)
 tokenizer.save_pretrained(peft_model_path)
 print("peft model saved")
@@ -130,7 +130,7 @@ print("peft model saved")
 from peft import PeftModel
 
 model_id = "meta-llama/Llama-3.2-3B-Instruct"
-peft_model_path = "./peft-qLoRA-llama3.2B-dolly15k"
+peft_model_path = "../models/peft-qLoRA-llama3.2B-dolly15k"
 
 peft_model_base = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
