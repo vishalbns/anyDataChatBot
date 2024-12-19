@@ -37,8 +37,8 @@ encoded_dataset = ds.map(tokenize_function, batched=True)
 print(encoded_dataset)
 
 # Split the dataset into train and eval sets
-train_dataset = encoded_dataset["train"][0:100]
-eval_dataset = encoded_dataset["test"][0:10]
+train_dataset = encoded_dataset["train"].select(range(100))
+eval_dataset = encoded_dataset["test"].select(range(10))
 
 
 '''
