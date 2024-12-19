@@ -65,7 +65,7 @@ class cbfs(param.Parameterized):
     def __init__(self,  **params):
         super(cbfs, self).__init__( **params)
         self.panels = []
-        self.loaded_file = "TimeMachineGPT.pdf"
+        self.loaded_file = "depression.pdf"
         self.qa = load_db(self.loaded_file,"stuff", 4)
     
     def call_load_db(self, count):
@@ -93,7 +93,7 @@ class cbfs(param.Parameterized):
             pn.Row('User:', pn.pane.Markdown(query, width=600))
         )
         self.panels.append(
-            pn.Row('KAI:', pn.pane.Markdown(self.answer, width=600))
+            pn.Row('friendifi_bot:', pn.pane.Markdown(self.answer, width=600))
         )
         inp.value = ''  # clears loading indicator when cleared
         return pn.WidgetBox(*self.panels,scroll=True)
@@ -143,7 +143,17 @@ inp = pn.widgets.TextInput( placeholder='Enter text here…')
 bound_button_load = pn.bind(cb.call_load_db, button_load.param.clicks)
 conversation = pn.bind(cb.convchain, inp) 
 
-jpg_pane = pn.pane.Image( './img/convchain.jpg')
+# Logo image setup
+logo_pane = pn.pane.Image('friendifi_logo.jpeg', width=80, height=80)
+
+# Setting background color
+background_css = """
+    body {
+        background-color: #A8DCAB;
+    }
+"""
+pn.extension(raw_css=[background_css])
+
 
 tab1 = pn.Column(
     pn.Row(inp),
@@ -164,11 +174,25 @@ tab4=pn.Column(
     pn.Row( file_input, button_load, bound_button_load),
     pn.Row( button_clearhistory, pn.pane.Markdown("Clears chat history. Can use to start a new topic" )),
     pn.layout.Divider(),
-    pn.Row(jpg_pane.clone(width=400))
+    #pn.Row(jpg_pane.clone(width=400))
 )
+'''
 dashboard = pn.Column(
-    pn.Row(pn.pane.Markdown('# Kasisto Interview Demo ChatBot')),
+    pn.Row(pn.pane.Markdown('FabFitFun Interview Demo ChatBot')),
     pn.Tabs(('Conversation', tab1), ('Database', tab2), ('Chat History', tab3),('Configure', tab4))
+)
+'''
+
+# Adding logo and heading
+header = pn.Row(
+    logo_pane,
+    pn.pane.Markdown("Interview Demo ChatBot", styles={'margin-left': '20px', 'font-size': '20px', 'font-family': 'URW Chancery L, cursive'}),
+    #background="rgb(253, 241, 235)"
+)
+
+dashboard = pn.Column(
+    header,
+    pn.Tabs(('Conversation', tab1), ('Database', tab2), ('Chat History', tab3), ('Configure', tab4))
 )
 
 # Serve the application
