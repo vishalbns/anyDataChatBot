@@ -70,7 +70,7 @@ config.num_labels = num_labels
 original_model = AutoModelForSequenceClassification.from_pretrained(
     model_id,
     config=config,  # Pass the config with num_labels and updated architecture
-    torch_dtype=torch.float16,  # Use float16 precision for memory efficiency
+    torch_dtype=torch.float32,  # Use float16 precision for memory efficiency
 ).to(device)
 
 # Ensure model is on the correct device
