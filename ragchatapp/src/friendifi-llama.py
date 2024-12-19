@@ -139,11 +139,13 @@ training_args = TrainingArguments(
     logging_dir="./logs",            # Directory for storing logs
     logging_steps=10,                # Frequency of logging
     report_to="tensorboard",         # Log to TensorBoard
-    eval_strategy="epoch",     # Evaluate at the end of each epoch
+    eval_strategy="steps",     # Evaluate at the end of each epoch
     do_train=True,
     do_eval=True,
     save_strategy="steps",  # Save at every step
     save_steps=100,
+    fp16=True,
+    learning_rate=1e-3,
 )
 
 from sklearn.metrics import accuracy_score
