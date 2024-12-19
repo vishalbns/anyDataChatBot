@@ -144,7 +144,6 @@ training_args = TrainingArguments(
     do_eval=True,
     save_strategy="steps",  # Save at every step
     save_steps=100,
-    fp16=True,
     learning_rate=1e-3,
 )
 
